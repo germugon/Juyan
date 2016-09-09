@@ -1,0 +1,24 @@
+package com.service;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.dao.ProductMapper;
+import com.model.Product;
+import com.model.ProductImage;
+import com.model.ProductSalesattr;
+
+@Service
+public class ProductService {
+	@Resource
+	private ProductMapper productMapper;
+	
+	public int addProduct(Product product, List<ProductImage> productImageList, 
+			List<ProductSalesattr> ProductSalesattrList) {
+		int res = productMapper.insert(product);
+		return res;
+	}
+}

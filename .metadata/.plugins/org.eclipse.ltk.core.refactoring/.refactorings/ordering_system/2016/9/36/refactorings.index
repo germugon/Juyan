@@ -1,0 +1,43 @@
+1472712521398	Copy file
+1472712525311	Move 'index.jsp' to 'webapp'
+1472712540486	Copy file
+1472715723305	Rename resource 'JSP'
+1472715727466	Move 'login.jsp' to 'jsp'
+1472716118747	Copy file
+1472716127073	Copy file
+1472716134590	Rename resource 'login_error.jsp'
+1472734125165	Rename resource 'login_fail.jsp'
+1472797623712	Move 'error.jsp' to 'webapp'
+1472797625651	Move 'login_success.jsp' to 'webapp'
+1472797636005	Move 'index.jsp' to 'jsp'
+1472797657326	Move 'index.jsp' to 'webapp'
+1472797668036	Copy file
+1472797683860	Delete element
+1472799464156	Rename package 'com.modellist'
+1472802292583	Copy compilation unit
+1472802326319	Delete element
+1472915213796	Move 4 resources to 'jsp'
+1472915242947	Delete element
+1472915325935	Copy file
+1472917899759	Delete element
+1472917911819	Copy file
+1472917940466	Delete element
+1472917949334	Copy file
+1472917960107	Rename resource 'bootstrap-cyborg.min2.css'
+1472918042525	Delete element
+1472918109039	Delete element
+1472918477263	Delete element
+1472918547100	Rename resource 'bootstrap-cerulean.min.css'
+1472918552381	Rename resource 'bootstrap-cyborg.min.css'
+1472918590395	Delete element
+1472918596069	Rename resource 'bootstrap-darkly.min.css'
+1472918611160	Delete element
+1472918722848	Rename resource 'bootstrap-slate.min.css'
+1472918742243	Delete element
+1472918754568	Rename resource 'bootstrap-spacelab.min.css'
+1472918770129	Delete element
+1472918777974	Rename resource 'bootstrap-united.min.css'
+1472918796281	Delete element
+1472918833956	Rename resource 'bootstrap-lumen.min.css'
+1472918859031	Delete element
+1472918863342	Rename resource 'bootstrap-simplex.min.css'

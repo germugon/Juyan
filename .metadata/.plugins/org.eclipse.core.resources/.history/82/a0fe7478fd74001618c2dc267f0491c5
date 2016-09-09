@@ -1,0 +1,21 @@
+package com.util;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class CustomerConverter implements Converter<String, Date> {
+
+    public Date convert(String source) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        //严格解析
+        dateFormat.setLenient(false);
+        try {
+            return dateFormat.parse(source);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }        
+        return null;
+    }
+}

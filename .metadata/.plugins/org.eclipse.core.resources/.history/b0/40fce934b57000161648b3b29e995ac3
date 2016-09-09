@@ -1,0 +1,14 @@
+package com.util;
+
+/**
+ * 常量
+ * @author ZHOU
+ *
+ */
+public class ConfigUtil {
+
+	/**
+	 * 
+	 */
+	public final static String USER_SESSION = "user_session";
+}

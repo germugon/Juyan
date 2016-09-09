@@ -1,0 +1,31 @@
+package com.model.list;
+
+import java.util.List;
+
+import com.model.User;
+
+public class UserList {
+	private List<User> list;
+
+	public List<User> getList() {
+		return list;
+	}
+
+	public void setList(List<User> list) {
+		this.list = list;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		
+		str.append("List{");
+		for(User user : list) {
+			str.append(user.toString() + ",");
+		}
+		str.setCharAt(str.length()-1, '}');
+		
+		return str.toString();
+	}	
+	
+}

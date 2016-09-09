@@ -1,0 +1,64 @@
+package com.controller;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.util.ConfigUtil;
+
+@Controller
+public class UploadFileController{
+
+    private Logger logger = Logger.getLogger(UploadFileController.class);
+    
+    @RequestMapping("uploadFile/image") 
+    public void uploadFile(File uploadify, String uploadifyFileName, String file_type, 
+    		HttpServletRequest request, Writer writer) throws IOException{
+    	file_type = "image";
+    	//上传文件的保存路径
+        String savePath = request.getSession().getServletContext().getRealPath("/" + ConfigUtil.UPLOAD_DIR + file_type);
+        File folder = new File(savePath);
+        if( !folder.exists() ) 
+        	folder.mkdirs();
+        logger.info(savePath); 
+        
+        //获取文件后缀
+        String newSuffix = ""; 
+        if( ( uploadifyFileName != null) && ( uploadifyFileName.length() > 0 ) )  
+        {  
+            int dot = uploadifyFileName.lastIndexOf(".");  
+            if( dot >= 0 )   
+                 newSuffix = uploadifyFileName.substring(dot);   
+        }  
+        
+        //生成文件名
+        String file_name = UUID.randomUUID().toString() + newSuffix;
+        String file_url = savePath + "\\" + file_name;
+        logger.info(file_url);
+        
+        //上传文件
+        FileInputStream fis = new FileInputStream(uploadify);
+        FileOutputStream fos = new FileOutputStream(file_url);
+
+		IOUtils.copy(fis, fos);  
+	    fos.flush();  
+	    fos.close();  
+	    fis.close(); 
+
+	    logger.info("----------" + ConfigUtil.UPLOAD_DIR + file_type + file_name);
+	    writer.write(file_name);
+ 
+    }  
+      
+}

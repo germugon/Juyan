@@ -1,0 +1,13 @@
+package com.service;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.dao.ProductMapper;
+
+@Service
+public class ProductService {
+	@Resource
+	private ProductMapper productMapper;
+}

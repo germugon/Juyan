@@ -1,0 +1,4 @@
+@CHARSET "UTF-8";
+a { text-decoration:none; }
+a:hover { color:red; text-decoration:none; } 
+td.title { text-align:right; vertical-align:middle; width:150px; }

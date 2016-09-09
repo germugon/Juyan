@@ -1,0 +1,77 @@
+package com.service;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.dao.ProductImageMapper;
+import com.dao.ProductMapper;
+import com.dao.ProductSalesattrMapper;
+import com.model.Product;
+import com.model.ProductSalesattr;
+import com.util.ConfigUtil;
+
+@Service
+public class ProductService {
+	@Resource
+	private ProductMapper productMapper;
+	@Resource
+	private ProductImageMapper productImageMapper;
+	@Resource
+	private ProductSalesattrMapper productSalesattrMapper;
+
+	public boolean ifProdNoExist(String prodNo) {
+
+		Product product = productMapper.selectByPrimaryKey(prodNo);
+
+		if( product != null )
+			return true;
+		else
+			return false;
+	}
+
+	public int addProduct(Product product) {
+
+		return productMapper.insert(product);
+	}
+
+	public int addProductSalesattr(String prodNo, List<ProductSalesattr> productSalesattrList) {
+
+		int res = 0;
+		
+		BigDecimal init = new BigDecimal(-1);
+		BigDecimal maxPrice = init;
+		BigDecimal minPrice = init;
+		
+		StringBuilder serialNo = new StringBuilder();
+		StringBuilder spec = new StringBuilder();
+		
+		for(ProductSalesattr productSalesattr : productSalesattrList) {
+			productSalesattr.setProdNo(prodNo);
+			int result = productSalesattrMapper.insert(productSalesattr);
+			
+			if(result > 0) {
+				String desc = productSalesattr.getDescription();
+				if(productSalesattr.equals(ConfigUtil.SALESATTR_SERIALNO))
+					serialNo.append(desc);
+				else if(productSalesattr.equals(ConfigUtil.SALESATTR_SPEC))
+					spec.append(desc);
+				
+				BigDecimal price = productSalesattr.getPrice();
+				if(maxPrice.compareTo(init) == 0 || price.compareTo(maxPrice) == 1) 
+					maxPrice = price;
+				if(minPrice.compareTo(init) == 0 || price.compareTo(minPrice) == -1)
+					minPrice = price;
+			}
+			
+			res += result;
+		}
+		
+		String priceRange = "";
+		
+		return res;
+	}
+}
