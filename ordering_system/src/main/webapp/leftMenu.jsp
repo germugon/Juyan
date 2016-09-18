@@ -11,7 +11,7 @@
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-plus"></i><span> 商品管理</span></a>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="addProduct.jsp"></a>添加新商品</li>
+                                <li><a href="addProduct.jsp">添加新商品</a></li>
                                 <li><a href="#">商品管理</a></li>
                             </ul>
                         </li>

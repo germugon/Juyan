@@ -18,7 +18,7 @@
         ===
     -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>添加新产品</title>
+    <title>添加新商品</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
     <meta name="author" content="Muhammad Usman">
@@ -96,72 +96,207 @@
 				                    
 				            		<tr>
 				            			<td class="title">商品编码 </td>
-				                		<td class="col-md-9">
+				                		<td>
 				                			<input type="text" name="prodNo" value="${prodNo}" class="form-control"/>
 				                		</td>
-				                 		<td id="prodNo_warn" style="color:red;"></td>
-									</tr>
-									
-					          		<tr>
+				                 		<td id="prodNo_warn" class="warn-msg"></td>
+
 				            			<td class="title">名称</td>
-					            		<td class="col-md-9">
+					            		<td>
 					            			<input type="text" name="name" value="${name}" class="form-control"/>
 					            		</td>
-				                		<td id="name_warn" style="color:red;"></td>
+				                		<td id="name_warn" class="warn-msg"></td>
 					              	</tr>
 					              	
 					              	<tr>
 				            			<td class="title">描述</td>
-					            		<td class="col-md-9">
+					            		<td>
 					            			<textarea name="description" class="form-control" rows="3">${description}</textarea>
 					            		</td>
-				                		<td id="description_warn" style="color:red;"></td>
+				                		<td id="description_warn" class="warn-msg"></td>
+				                		
+				                		<td class="title">品牌</td>
+					            		<td>
+					            			<div class="controls">
+						                        <select name="brandId"></select>
+						                    </div>
+					            		</td>
+				                		<td id="brandId_warn" class="warn-msg"></td>
+					              	</tr>
+					              	
+					              	<tr>
+				            			<td class="title">颜色</td>
+					            		<td>
+					            			<input type="text" name="color" value="${color}" class="form-control"/>
+				                		</td>
+				                		<td id="color_warn" class="warn-msg"></td>
+
+				            			<td class="title">规格</td>
+					            		<td>
+					            			<input type="text" name="spec" value="${spec}" class="form-control"/>
+				                		</td>
+				                		<td id="spec_warn" class="warn-msg"></td>
 					              	</tr>
 					              	
 					              	<tr>
 				            			<td class="title">产地</td>
-					            		<td class="col-md-9">
+					            		<td>
 					            			<input type="text" name="place" value="${place}" class="form-control"/>
 				                		</td>
-				                		<td id="place_warn" style="color:red;"></td>
-					              	</tr>
-				                
-				                	<tr>
-				            			<td class="title">品牌</td>
-					            		<td class="col-md-9">
-					            			<div class="controls">
-						                        <select name="brand" data-rel="chosen" class="col-md-5">
-						                            <option>OPI</option>
-						                            <option>贝瑞可</option>
-						                            <option>CND</option>
-						                            <option>YONKA</option>
-						                        </select>
-						                    </div>
-					            		</td>
-				                		<td id="place_warn" style="color:red;"></td>
+				                		<td id="place_warn" class="warn-msg"></td>
+
+				            			<td class="title">价格</td>
+					            		<td>
+					            			<input type="text" name="price" value="${price}" class="form-control"/>
+				                		</td>
+				                		<td id="price_warn" class="warn-msg"></td>
 					              	</tr>
 					              	
 					              	<tr>
-				            			<td class="title">详情图片</td>
-					            		<td class="col-md-9">
-					            			<a id="img_href" href="${detail}">
-						             			<img id="img_src" src="${detail}" style="vertical-align:middle;display:block;" 
-						               				onload="onPreviewLoad(this,200)"/>
-						               		</a>
-						               		<input type="hidden" id="image" name="detail"/>
-					            			<input type="file" id="image_upload" data-no-uniform="true" />
+				            			<td class="title">库存</td>
+					            		<td>
+					            			<input type="text" name="stock" value="${stock}" class="form-control"/>
 				                		</td>
-				                		<td id="image_warn" style="color:red;"></td>
-					              	</tr>
-									
+				                		<td id="stock_warn" class="warn-msg"></td>
+
+				            			<td class="title">警戒库存</td>
+					            		<td>
+					            			<input type="text" name="warnStock" value="${warnStock}" class="form-control"/>
+				                		</td>
+				                		<td id="warn_stock_warn" class="warn-msg"></td>
+					              	</tr>					           
+					              	
+					              	<tr>
+				            			<td class="title">上架时间</td>
+					            		<td>
+					            			<input type="text" name="onsaleTime" value="${onsaleTime}"
+					            				class="form-control form_date" placeholder="格式yyyy-mm-dd"/>
+					            		</td>
+				                		<td id="onsaleTime_warn" class="warn-msg"></td>
+	
+				                		<td class="title">状态</td>
+					            		<td>
+					            			<div class="controls">
+						                        <select name="statusId"></select>
+						                    </div>
+					            		</td>
+				                		<td id="statusId_warn" class="warn-msg"></td>
+					              	</tr>	
+					              	
+					              	<tr>
+					              		<td class="title">是否卫检</td>
+					            		<td>
+					            			<div class="controls">
+						                        <select name="isInspect" data-rel="chosen">
+						                            <option value='Y'>是</option>
+						                            <option value='N'>否</option>
+						                        </select>
+						                    </div>
+					            		</td>
+				                		<td id="isInspect_warn" class="warn-msg"></td>
+				                		
+				            			<td class="title">备注</td>
+					            		<td>
+					            			<textarea name="remarks" class="form-control" rows="3">${remarks}</textarea>
+					            		</td>
+				                		<td id="remarks_warn" class="warn-msg"></td>
+				                	</tr>
+				                	
+					              	<tr>
+				            			<td class="title">展示图片</td>
+					            		<td>
+					            			<ul class="thumbnails gallery thumbnails-left">	
+						            			<li class="thumbnail"">	 
+							            			<a id="img_href0" href="${imgUrl}">
+								             			<img id="img_src0" src="${imgUrl}"/>
+								               		</a>
+								               		<input type="hidden" id="image0" name="imgUrl"/>			
+							            			<input type="file" id="image_upload0" class="uploadify" />
+							            		</li>
+							            	</ul>					            
+				                		</td>
+				                		<td id="imgUrl_warn" class="warn-msg"></td>
+
+
+				            			<td class="title">颜色图片</td>
+					            		<td>
+					            			<ul class="thumbnails gallery thumbnails-left">	
+						            			<li class="thumbnail">	 
+							            			<a id="img_href1" href="${list[0].imgColor}">
+								             			<img id="img_src1" src="${list[0].imgColor}"/>
+								               		</a>
+								               		<input type="hidden" id="image1" name="list[0].imgColor"/>
+							            			<input type="file" id="image_upload1" class="uploadify" />
+							            		</li>
+							            	</ul>
+				                		</td>
+				                		<td id="imgColor_warn" class="warn-msg"></td>
+					              	</tr>					           				            
+				                			
+				                	<tr>		
+				            			<td class="title">细节图片</td>
+					            		<td colspan="4">	
+					            			<ul class="thumbnails gallery thumbnails-left">	
+						            			<li class="thumbnail thumbnail-middle">	            			
+							            			<a id="img_href2" href="${list[0].imgSmall}">
+								             			<img id="img_src2" src="${list[0].imgSmall}"/>
+								               		</a>
+								               		<input type="hidden" id="image2" name="list[0].imgSmall"/>
+							            			<input type="file" id="image_upload2" class="uploadify" />
+							            		</li>
+						            			
+						            			<li class="thumbnail thumbnail-middle thumbnails-left">	  
+							            			<a id="img_href3" href="${list[1].imgSmall}">
+								             			<img id="img_src3" src="${list[1].imgSmall}"/>
+								               		</a>
+								               		<input type="hidden" id="image3" name="list[1].imgSmall"/>
+							            			<input type="file" id="image_upload3" class="uploadify" />
+							            		</li>
+							            		
+							            		<li class="thumbnail thumbnail-middle thumbnails-left">	  
+							            			<a id="img_href4" href="${list[2].imgSmall}">
+								             			<img id="img_src4" src="${list[2].imgSmall}"/>
+								               		</a>
+								               		<input type="hidden" id="image4" name="list[2].imgSmall"/>
+							            			<input type="file" id="image_upload4" class="uploadify" />	
+							            		</li>
+							            		
+							            		<li class="thumbnail thumbnail-middle thumbnails-left">	  
+							            			<a id="img_href5" href="${list[3].imgSmall}">
+								             			<img id="img_src5" src="${list[3].imgSmall}"/>
+								               		</a>
+								               		<input type="hidden" id="image5" name="list[3].imgSmall"/>
+							            			<input type="file" id="image_upload5" class="uploadify" />	
+							            		</li>
+						            		</ul>				            			
+				                		</td>
+				                		<!-- <td id="imgSmall_warn" class="warn-msg"></td>  -->
+				                	</tr>
+		
+									<tr>	
+					              		<td class="title">详情图片</td>
+					            		<td>
+					            			<ul class="thumbnails gallery thumbnails-left">	
+						            			<li class="thumbnail">	 
+							            			<a id="img_href6" href="${detail}">
+								             			<img id="img_src6" src="${detail}"/>
+								               		</a>
+								               		<input type="hidden" id="image6" name="detail"/>
+							            			<input type="file" id="image_upload6" class="uploadify" />
+						            			</li>
+						            		</ul>
+				                		</td>
+				                		<td id="detail_warn" class="warn-msg"></td>
+				                	</tr>
+				                	
 				                	<tr>
 				            			<td></td>
-				            			<td><div style="color:red;"><c:if test="${msg != null}">${msg}</c:if></div></td>
+				            			<td><div class="warn-msg"><c:if test="${msg != null}">${msg}</c:if></div></td>
 				            		</tr>
 				                	
 				                	<tr>
 				                		<td></td>
-				            			<td><button type="submit" id="next" class="btn btn-primary" style="width:200px">下一步</button></td>
+				            			<td><button type="submit" id="next" class="btn btn-primary" style="width:200px">添加</button></td>
 				                	</tr>
 				
 								</table>
@@ -219,9 +354,78 @@
 <!-- application script for Charisma demo -->
 <script src="js/charisma.js"></script>
 
+<!-- datepicker  -->
+<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <!-- my custom js -->
 <script src="js/custom.js"></script>
 
+<script type="text/javascript">
+//获取Brand
+$.ajax({
+	type: "POST",
+	url: "getBrand",
+	dataType: "json",
+	success: function(data){
+		if(data != '') {
+	  		$.each(data,function(index,item){
+	   			var option = "<option value='" + item.brandId + "'>" + item.brandName + "</option>";
+	   			//alert(option);
+	   			$("[name='brandId']").append(option);
+	   		});
+	   			
+	   		$("[name='brandId']").chosen();
+	   	}
+	},
+	error: function(){}
+});
+
+
+//获取ProductStatus
+$.ajax({
+	type: "POST",
+	url: "getProductStatus",
+	dataType: "json",
+	success: function(data){
+		if(data != '') {
+	  		$.each(data,function(index,item){
+	   			var option = "<option value='" + item.statusId + "'>" + item.statusName + "</option>";
+	   			//alert(option);
+	   			$("[name='statusId']").append(option);
+	   		});
+	   			
+	   		$("[name='statusId']").chosen();
+	   	}
+	},
+	error: function(){}
+});		
+
+
+//设置上传图片
+$(".uploadify").each(function(i){
+	var $this = $(this);
+	$this.uploadify({
+        'swf': 'misc/uploadify.swf',
+        'uploader': 'uploadFile/image',
+        'cancelImg': 'img/uploadify-cancel.png',
+        'buttonText': '', 
+        'buttonCursor': 'hand',		// 按钮的鼠标图标
+        'fileObjName': 'uploadify',	//controller中File参数的名称
+        'fileTypeExts': '*.jpg;*.jpeg;*.png;*.bmp;*.gif',
+        'fileSizeLimit': '10MB',
+        'onUploadSuccess' : function(file, data, response) {     
+         	$("#image" + i).val(data);
+        	$("#img_href" + i).attr("href", data);
+    		$("#img_src" + i).attr("src", data);
+    		//alert( file.name + ' 上传成功！ ');
+       	},
+    	'onUploadError': function(file, errorCode, errorMsg, errorString) {
+    		alert( file.name + ' 上传失败！ ' );
+    	}
+    });
+});
+</script>
+    
 </body>
 </html>
 

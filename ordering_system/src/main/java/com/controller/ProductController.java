@@ -6,6 +6,7 @@ import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.model.Brand;
 import com.model.Product;
-import com.model.ProductSalesattr;
+import com.model.ProductStatus;
+import com.model.list.ProductImageList;
 import com.service.ProductService;
 
 @Controller
@@ -29,7 +33,7 @@ public class ProductController {
 	private Logger logger = Logger.getLogger(ProductController.class);
 	
 	@RequestMapping("addProduct")  
-	public ModelAndView addProduct(Product product) {
+	public ModelAndView addProduct(Product product, ProductImageList productImageList) {
 		
 		ModelAndView modelAndView = new ModelAndView(); 
 		
@@ -39,65 +43,61 @@ public class ProductController {
 		if(productService.ifProdNoExist(prodNo)) {
 			modelAndView.setViewName("addProduct");
 			modelAndView.addObject("msg", "商品编号已存在");
-		} else {
-			int res = productService.addProduct(product);
 			
-			if(res > 0) {
-				modelAndView.setViewName("addProductSalesattr");
-				modelAndView.addObject("prodNo", prodNo);
-			} else {
-				modelAndView.setViewName("addProduct");
+		} else {
+			int res = productService.addProduct(product, productImageList);
+			
+			modelAndView.setViewName("addProduct");
+			if(res == 0) {
 				modelAndView.addObject("msg", "添加商品失败");
 			}
 		}
 		return modelAndView;
 	}
 	
-	@RequestMapping("addProductSalesattr")  
-	public void addProductSalesattr(ProductSalesattr productSalesattr, Writer writer) throws IOException {
-		
-		logger.info(productSalesattr);
+	@RequestMapping("getProductStatus")  
+	public void getProductStatus(Writer writer) throws IOException {
 
-		String prodNo = productSalesattr.getProdNo();
-		if(!productService.ifProdNoExist(prodNo)) {
-			writer.write("商品编号不存在");
+		logger.info("getProductStatus");
+		
+		List<ProductStatus> list = productService.getProductStatus();
+		
+		if(list != null) {
+			Gson gson = new Gson();
+			String result = gson.toJson(list);
+			
+			logger.info(result);
+			writer.write(result);
 			
 		} else {
-			String sku = productSalesattr.getSku();
-			if(productService.ifSkuExist(sku)) {
-				writer.write("SKU编号已存在");
-				
-			} else {
-				int res = productService.addProductSalesattr(productSalesattr);
-				
-				if(res > 0) {
-					writer.write("");
-				} else {
-					writer.write("添加销售属性失败");
-				}
-			}
-		}
+			writer.write("");
+		}	
 	}
 	
-	@RequestMapping("removeProductSalesattr")  
-	public void removeProductSalesattr(String sku, String prodNo, Writer writer) throws IOException {
+	@RequestMapping("getBrand")  
+	public void getBrand(Writer writer) throws IOException {
+
+		logger.info("getBrand");
 		
-		logger.info(sku);
-
-
-		int res = productService.removeProductSalesattr(sku, prodNo);
+		List<Brand> list = productService.getBrand();
+		
+		if(list != null) {
+			Gson gson = new Gson();
+			String result = gson.toJson(list);
 			
-		if(res > 0) {
-			writer.write("");
+			logger.info(result);
+			writer.write(result);
+			
 		} else {
-			writer.write("删除销售属性失败");
-		}
+			writer.write("");
+		}	
 	}
+	
 	
 	@InitBinder  
     public void dataBinder(WebDataBinder binder) {  
-       DateFormat dateFormat = new SimpleDateFormat( "yyyy-MM-dd" );  
-       PropertyEditor propertyEditor = new CustomDateEditor(dateFormat, true ); // 第二个参数表示是否允许为空  
-       binder.registerCustomEditor(Date. class , propertyEditor);  
+       DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+       PropertyEditor propertyEditor = new CustomDateEditor(dateFormat, true); // 第二个参数表示是否允许为空  
+       binder.registerCustomEditor(Date.class, propertyEditor);  
 	}
 }

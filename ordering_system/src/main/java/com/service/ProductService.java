@@ -1,19 +1,22 @@
 package com.service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.dao.BrandMapper;
 import com.dao.ProductImageMapper;
 import com.dao.ProductMapper;
-import com.dao.ProductSalesattrMapper;
+import com.dao.ProductStatusMapper;
+import com.model.Brand;
+import com.model.BrandExample;
 import com.model.Product;
-import com.model.ProductSalesattr;
-import com.model.ProductSalesattrExample;
-import com.util.ConfigUtil;
+import com.model.ProductImage;
+import com.model.ProductStatus;
+import com.model.ProductStatusExample;
+import com.model.list.ProductImageList;
 
 @Service
 public class ProductService {
@@ -22,8 +25,10 @@ public class ProductService {
 	@Resource
 	private ProductImageMapper productImageMapper;
 	@Resource
-	private ProductSalesattrMapper productSalesattrMapper;
-
+	private ProductStatusMapper productStatusMapper;
+	@Resource
+	private BrandMapper brandMapper;
+	
 	public boolean ifProdNoExist(String prodNo) {
 
 		Product product = productMapper.selectByPrimaryKey(prodNo);
@@ -33,118 +38,61 @@ public class ProductService {
 		else
 			return false;
 	}
-	
-	public boolean ifSkuExist(String sku) {
 
-		ProductSalesattr productSalesattr = productSalesattrMapper.selectByPrimaryKey(sku);
+	public int addProduct(Product product, ProductImageList productImageList) {
 
-		if( productSalesattr != null )
-			return true;
+		/*
+		Date onSaleTime = product.getOnsaleTime();
+		Date currTime = new Date();
+		//此处注意ProductStatus的变化
+		if(onSaleTime != null && onSaleTime.after(currTime))
+			product.setStatusId(1);
 		else
-			return false;
-	}
-
-	public int addProduct(Product product) {
-
-		return productMapper.insert(product);
-	}
-
-	public int addProductSalesattr(ProductSalesattr productSalesattr) {
-
-		int res = productSalesattrMapper.insert(productSalesattr);
-
-		if(res > 0) {
-
-			String prodNo = productSalesattr.getProdNo();
-			Product product = productMapper.selectByPrimaryKey(prodNo);		
-
-			String serialNo = product.getSerialNo();
-			String spec = product.getSpec();
-			
-			String attrName = productSalesattr.getAttrName();
-			String desc = productSalesattr.getDescription();
-			
-			if(attrName.equals(ConfigUtil.SALESATTR_SERIALNO)) {	
-				product.setSerialNo( (serialNo == null ? "": serialNo) + " " + desc);
-			}
-			else if(attrName.equals(ConfigUtil.SALESATTR_SPEC)) {				
-				product.setSpec((spec == null ? "": spec) + " " + desc);
-			}
-
-			BigDecimal minPrice = product.getMinPrice();
-			BigDecimal maxPrice = product.getMaxPrice();
-
-			BigDecimal price = productSalesattr.getPrice();
-			
-			if(minPrice == null || price.compareTo(minPrice) == -1) {
-				product.setMinPrice(price);
-			}
-			if(maxPrice == null || price.compareTo(maxPrice) == 1) {
-				product.setMaxPrice(price);
-			}
-
-			res = productMapper.updateByPrimaryKey(product);
-		}
-		return res;
-	}
-	
-	//有问题，待检查
-	public int removeProductSalesattr(String sku, String prodNo) {
-
-		int res = productSalesattrMapper.deleteByPrimaryKey(sku);
+			product.setStatusId(2);
+		*/
+		
+		int res = productMapper.insert(product);
 		
 		if(res > 0) {
-
-			StringBuilder serialNo = new StringBuilder();
-			StringBuilder spec = new StringBuilder();
+			String prodNo = product.getProdNo();
+			String color = product.getColor();
+			String imgUrl = product.getImgUrl();
 			
-			BigDecimal minPrice = null;
-			BigDecimal maxPrice = null;
+			List<ProductImage> list = productImageList.getList();
+			String imgColor = list.get(0).getImgColor();
 			
-			
-			ProductSalesattrExample example = new ProductSalesattrExample();
-			example.createCriteria().andProdNoEqualTo(prodNo);
-			
-			List<ProductSalesattr> productSalesattrList = productSalesattrMapper.selectByExample(example);
-			
-			for(ProductSalesattr productSalesattr : productSalesattrList) {
-
-				String attrName = productSalesattr.getAttrName();
-				String desc = productSalesattr.getDescription();
-				
-				if(attrName.equals(ConfigUtil.SALESATTR_SERIALNO)) {	
-					serialNo.append(desc + " ");
-				}
-				else if(attrName.equals(ConfigUtil.SALESATTR_SPEC)) {				
-					spec.append(desc + " ");
-				}
-				
-				BigDecimal price = productSalesattr.getPrice();
-				
-				if(minPrice == null || price.compareTo(minPrice) == -1) {
-					minPrice = price;
-				}
-				if(maxPrice == null || price.compareTo(maxPrice) == 1) {
-					maxPrice = price;
+			for(ProductImage productImage : list) {
+				String imgSmall = productImage.getImgSmall();
+				if(imgSmall != null && !imgSmall.trim().equals("")) {
+					productImage.setProdNo(prodNo);
+					productImage.setImgBig(imgUrl);
+					productImage.setImgTitle(prodNo + color);
+					productImage.setImgColor(imgColor);
+					
+					res = productImageMapper.insert(productImage);
 				}
 			}
-			
-			Product product = new Product();
-			product.setProdNo(prodNo);
-			if(serialNo.length() > 0) {
-				serialNo.deleteCharAt(serialNo.length()-1);
-				product.setSerialNo(serialNo.toString());
-			}
-			if(spec.length() > 0) {
-				spec.deleteCharAt(spec.length()-1);
-				product.setSpec(spec.toString());
-			}
-			product.setMinPrice(minPrice);
-			product.setMaxPrice(maxPrice);
-			
-			res = productMapper.updateByPrimaryKeySelective(product);	
-	
 		}
+
 		return res;
 	}
+	
+	public List<ProductStatus> getProductStatus() {
+
+		ProductStatusExample example = new ProductStatusExample();
+		example.createCriteria();
+//		example.setOrderByClause("status_id asc");
+		
+		return productStatusMapper.selectByExample(example);
+	}
+	
+	public List<Brand> getBrand() {
+
+		BrandExample example = new BrandExample();
+		example.createCriteria();
+//		example.setOrderByClause("brand_id asc");
+		
+		return brandMapper.selectByExample(example);
+	}
+
 }

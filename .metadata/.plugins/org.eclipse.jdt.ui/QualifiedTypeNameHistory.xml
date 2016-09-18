@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.springframework.web.servlet.ModelAndView"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
 <fullyQualifiedTypeName name="java.io.Reader"/>
 <fullyQualifiedTypeName name="com.model.Merchant"/>
 <fullyQualifiedTypeName name="com.dao.MerchantMapper"/>
@@ -28,7 +25,6 @@
 <fullyQualifiedTypeName name="com.model.ProductImage"/>
 <fullyQualifiedTypeName name="com.model.list.ProductImageList"/>
 <fullyQualifiedTypeName name="com.model.list.ProductSalesattrList"/>
-<fullyQualifiedTypeName name="com.google.gson.Gson"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CookieValue"/>
 <fullyQualifiedTypeName name="javax.servlet.http.Cookie"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
@@ -57,7 +53,11 @@
 <fullyQualifiedTypeName name="java.text.ParseException"/>
 <fullyQualifiedTypeName name="org.springframework.cglib.core.Converter"/>
 <fullyQualifiedTypeName name="org.springframework.core.convert.converter.Converter"/>
-<fullyQualifiedTypeName name="java.io.Writer"/>
 <fullyQualifiedTypeName name="com.model.ProductSalesattrExample"/>
+<fullyQualifiedTypeName name="com.dao.ProductStatusMapper"/>
+<fullyQualifiedTypeName name="com.model.ProductStatusExample"/>
+<fullyQualifiedTypeName name="java.io.Writer"/>
+<fullyQualifiedTypeName name="com.model.ProductStatus"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.google.gson.Gson"/>
 </qualifiedTypeNameHistroy>

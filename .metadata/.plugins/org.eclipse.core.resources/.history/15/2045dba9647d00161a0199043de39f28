@@ -1,0 +1,61 @@
+package com.service;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.dao.BrandMapper;
+import com.dao.ProductImageMapper;
+import com.dao.ProductMapper;
+import com.dao.ProductStatusMapper;
+import com.model.Brand;
+import com.model.BrandExample;
+import com.model.Product;
+import com.model.ProductStatus;
+import com.model.ProductStatusExample;
+
+@Service
+public class ProductService {
+	@Resource
+	private ProductMapper productMapper;
+	@Resource
+	private ProductImageMapper productImageMapper;
+	@Resource
+	private ProductStatusMapper productStatusMapper;
+	@Resource
+	private BrandMapper brandMapper;
+	
+	public boolean ifProdNoExist(String prodNo) {
+
+		Product product = productMapper.selectByPrimaryKey(prodNo);
+
+		if( product != null )
+			return true;
+		else
+			return false;
+	}
+
+	public int addProduct(Product product) {
+
+		return productMapper.insert(product);
+	}
+	
+	public List<ProductStatus> getProductStatus() {
+
+		ProductStatusExample example = new ProductStatusExample();
+		example.createCriteria();
+		
+		return productStatusMapper.selectByExample(example);
+	}
+	
+	public List<Brand> getBrand() {
+
+		BrandExample example = new BrandExample();
+		example.createCriteria();
+		
+		return brandMapper.selectByExample(example);
+	}
+
+}

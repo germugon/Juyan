@@ -1,0 +1,37 @@
+package com.service;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.dao.ProductImageMapper;
+import com.dao.ProductMapper;
+import com.model.Product;
+import com.util.ConfigUtil;
+
+@Service
+public class ProductService {
+	@Resource
+	private ProductMapper productMapper;
+	@Resource
+	private ProductImageMapper productImageMapper;
+
+	public boolean ifProdNoExist(String prodNo) {
+
+		Product product = productMapper.selectByPrimaryKey(prodNo);
+
+		if( product != null )
+			return true;
+		else
+			return false;
+	}
+
+	public int addProduct(Product product) {
+
+		return productMapper.insert(product);
+	}
+
+}

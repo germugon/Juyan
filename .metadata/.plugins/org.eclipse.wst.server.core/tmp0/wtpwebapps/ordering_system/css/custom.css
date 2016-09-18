@@ -11,3 +11,7 @@ select { width:100px; }
 .controls { width:200px; }
 
 .warn-msg { color:red; }
+
+.gallery-controls-right { margin-left:110px; }
+.thumbnail-middle { vertical-align:middle; }
+.thumbnails-left {margin-left:-55px;}

@@ -1,0 +1,44 @@
+package com.service;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.dao.ProductImageMapper;
+import com.dao.ProductMapper;
+import com.dao.ProductStatusMapper;
+import com.model.Product;
+import com.model.ProductStatusExample;
+
+@Service
+public class ProductService {
+	@Resource
+	private ProductMapper productMapper;
+	@Resource
+	private ProductImageMapper productImageMapper;
+	@Resource
+	private ProductStatusMapper productStatusMapper;
+
+	public boolean ifProdNoExist(String prodNo) {
+
+		Product product = productMapper.selectByPrimaryKey(prodNo);
+
+		if( product != null )
+			return true;
+		else
+			return false;
+	}
+
+	public int addProduct(Product product) {
+
+		return productMapper.insert(product);
+	}
+	
+	public int getProductStatus() {
+
+		ProductStatusExample example = new ProductStatusExample();
+		example.createCriteria();
+		return productStatusMapper.selectByExample(example);
+	}
+
+}

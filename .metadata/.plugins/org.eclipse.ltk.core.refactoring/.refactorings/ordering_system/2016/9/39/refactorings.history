@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;ordering_system/src/main/webapp/addProductImage.jsp&apos; to &apos;addProductImage-invalid.jsp&apos;" description="Rename resource &apos;addProductImage.jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/webapp/addProductImage.jsp" name="addProductImage-invalid.jsp" stamp="1474181371968" updateReferences="true"/>
+</session>

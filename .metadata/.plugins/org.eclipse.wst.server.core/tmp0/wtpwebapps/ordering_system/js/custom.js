@@ -1,3 +1,4 @@
+/*
 //图片预览
 function onPreviewLoad(sender, size){
 	autoSizePreview( sender, sender.offsetWidth, sender.offsetHeight ,size , size);  
@@ -39,7 +40,8 @@ function imgZoomParam( maxWidth, maxHeight, width, height ){
 	}
 	return param;
 } 
-   
+*/
+
 //日期选择器
 $('.form_date').datetimepicker({
 	language:  'zh-CN',

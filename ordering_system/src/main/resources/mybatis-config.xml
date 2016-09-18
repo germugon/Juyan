@@ -29,7 +29,6 @@
 		
 		<typeAlias type="com.model.Product" alias="product"/>
 		<typeAlias type="com.model.ProductImage" alias="productImage"/>
-		<typeAlias type="com.model.ProductSalesattr" alias="productSalesattr"/>
 		<typeAlias type="com.model.ProductStatus" alias="productStatus"/>
 		<typeAlias type="com.model.AssociatedFormat" alias="associatedFormat"/>
 		<typeAlias type="com.model.SalesPromotion" alias="salesPromotion"/>
@@ -68,7 +67,6 @@
 		
 		<mapper resource="mappers/Product.xml"/>
 		<mapper resource="mappers/ProductImage.xml"/>
-		<mapper resource="mappers/ProductSalesattr.xml"/>
 		<mapper resource="mappers/ProductStatus.xml"/>
 		<mapper resource="mappers/AssociatedFormat.xml"/>
 		<mapper resource="mappers/SalesPromotion.xml"/>

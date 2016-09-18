@@ -1,0 +1,99 @@
+package com.service;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.dao.BrandMapper;
+import com.dao.ProductImageMapper;
+import com.dao.ProductMapper;
+import com.dao.ProductStatusMapper;
+import com.model.Brand;
+import com.model.BrandExample;
+import com.model.Product;
+import com.model.ProductImage;
+import com.model.ProductStatus;
+import com.model.ProductStatusExample;
+import com.model.list.ProductImageList;
+
+@Service
+public class ProductService {
+	@Resource
+	private ProductMapper productMapper;
+	@Resource
+	private ProductImageMapper productImageMapper;
+	@Resource
+	private ProductStatusMapper productStatusMapper;
+	@Resource
+	private BrandMapper brandMapper;
+	
+	public boolean ifProdNoExist(String prodNo) {
+
+		Product product = productMapper.selectByPrimaryKey(prodNo);
+
+		if( product != null )
+			return true;
+		else
+			return false;
+	}
+
+	public int addProduct(Product product, ProductImageList productImageList) {
+
+		/*
+		Date onSaleTime = product.getOnsaleTime();
+		Date currTime = new Date();
+		//此处注意ProductStatus的变化
+		if(onSaleTime != null && onSaleTime.after(currTime))
+			product.setStatusId(1);
+		else
+			product.setStatusId(2);
+		*/
+		
+		int res = productMapper.insert(product);
+		
+		if(res > 0) {
+			String prodNo = product.getProdNo();
+			String color = product.getColor();
+			String imgUrl = product.getImgUrl();
+			
+			List<ProductImage> list = productImageList.getList();
+			String imgColor = list.get(0).getImgColor();
+			
+			for(ProductImage productImage : list) {
+				String imgSmall = productImage.getImgSmall();
+				if(imgSmall != null && !imgSmall.trim().equals("")) {
+					productImage.setProdNo(prodNo);
+					productImage.setImgBig(imgUrl);
+					productImage.setImgTitle(prodNo + color);
+					productImage.setImgColor(imgColor);
+					
+					res = productImageMapper.insert(productImage);
+				}
+			}
+		}
+
+		return res;
+	}
+	
+	public List<ProductStatus> getProductStatus() {
+
+		ProductStatusExample example = new ProductStatusExample();
+		example.createCriteria();
+//		example.setOrderByClause("status_id asc");
+		
+		return productStatusMapper.selectByExample(example);
+	}
+	
+	public List<Brand> getBrand() {
+
+		BrandExample example = new BrandExample();
+		example.createCriteria();
+//		example.setOrderByClause("brand_id asc");
+		
+		return brandMapper.selectByExample(example);
+	}
+
+}
